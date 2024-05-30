@@ -6,11 +6,11 @@
 /*   By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:21:15 by leobarbo          #+#    #+#             */
-/*   Updated: 2024/05/29 13:25:33 by leobarbo         ###   ########.fr       */
+/*   Updated: 2024/05/29 17:16:05 by leobarbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../include/philosophers.h"
 
 void	error(char *msg)
 {
@@ -40,7 +40,7 @@ long	philo_atol(const char *str_arg)
 		nbr = nbr * 10 + (*str - '0');
 		str++;
 	}
-	nbr = nbr * sign;
-	negative_nbr(nbr);
+	nbr = nbr * sign; // Talvez nao seja necessario por conta da funcao negative_nbr(nbr);
+	valid_nbr(nbr);
 	return (nbr);
 }
