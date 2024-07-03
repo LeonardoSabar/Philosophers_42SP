@@ -6,7 +6,7 @@
 /*   By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:33:35 by leobarbo          #+#    #+#             */
-/*   Updated: 2024/07/01 10:17:23 by leobarbo         ###   ########.fr       */
+/*   Updated: 2024/07/03 10:45:28 by leobarbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ int	main(int argc, char **argv)
 	{
 		parse_args(&table, argv);
 
-		// if table.philo_nbr <=  200
-		//{
-			// init_table(&table);
+		if (table.philo_nbr <=  200)
+		{
+			init_table(&table);
 
 			// start_dinner(&table);
 
-			// clean(&table); // Quando todos os filósofos terminarem de comer ou um morrer, "limpar a mesa"
-		//}
+			// clean(&table); // Quando todos os fil ósofos terminarem de comer ou um morrer, "limpar a mesa"
+		}
 		print_test_args(&table);
 	}
 	else
