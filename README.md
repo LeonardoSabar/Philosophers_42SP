@@ -1,5 +1,5 @@
 # Philosophers
-#### Para acessar a versão em português deste README [clique aqui](https://github.com/LeonardoSabar/Minitalk/blob/master/README_pt_br.md).
+#### 🇧🇷 Para acessar a versão em português deste README [clique aqui](https://github.com/LeonardoSabar/Minitalk/blob/master/README_pt_br.md).
 <p align="center">
 <img src="https://github.com/LeonardoSabar/Philosophers/blob/master/minitalk.gif" width="800px" alt="mandatory"/><br>
 </p>
