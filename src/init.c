@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.c                                     :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 15:54:31 by leobarbo          #+#    #+#             */
-/*   Updated: 2024/07/01 18:21:01 by leobarbo         ###   ########.fr       */
+/*   Updated: 2024/07/03 09:15:19 by leobarbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
-void	philo_thinking(int	philo_id)
+void	philo_thinking(int philo_id)
 {
 	printf("The philosopher: %d, is thinking", philo_id);
 }
@@ -28,7 +28,7 @@ void	assign_forks(t_philo *philo, t_fork *forks, int philo_position)
 
 void	philo_init(t_table *table)
 {
-	int	i;
+	int		i;
 	t_philo	*philo;
 
 	i = -1;
