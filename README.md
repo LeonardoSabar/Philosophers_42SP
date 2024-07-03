@@ -3,7 +3,7 @@
 <p align="center">
 <img src="https://github.com/LeonardoSabar/Philosophers_42SP/blob/main/utils/philos.jpeg" width="800px" alt="mandatory"/><br>
 </p>
-This project simulates the classic dining philosophers problem using threads and mutexes. The goal is to avoid deadlocks while ensuring that each philosopher can eat without conflicts.
+This project simulates the classic [dining philosophers problem](https://en.wikipedia.org/wiki/Dining_philosophers_problem) using [threads](https://en.wikipedia.org/wiki/Thread_(computing)) and [mutexes](https://en.wikipedia.org/wiki/Mutual_exclusion). The goal is to avoid deadlocks while ensuring that each philosopher can eat without conflicts.
 
 ## Code style
 The code style used in this project is the [Norminette](https://github.com/42School/norminette) created by the 42 school and used in all related ANSI C projects in the context of the school.
