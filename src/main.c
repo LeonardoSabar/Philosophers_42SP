@@ -6,11 +6,11 @@
 /*   By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:33:35 by leobarbo          #+#    #+#             */
-/*   Updated: 2024/07/03 10:45:28 by leobarbo         ###   ########.fr       */
+/*   Updated: 2024/07/03 14:49:18 by leobarbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philosophers.h"
+#include "philosophers.h"
 
 void	print_test_args(t_table *table)
 {

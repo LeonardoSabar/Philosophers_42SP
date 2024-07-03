@@ -26,7 +26,7 @@ This project provides a solution to the problem using threads and mutexes. It en
 
 **Clone the repository:**
 ```sh
-   git clone https://github.com/your-username/philosophers.git
+   git clone https://github.com/LeonardoSabar/Philosophers_42SP.git
 ```
 
 **Compile the program:**

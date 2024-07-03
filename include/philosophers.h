@@ -6,7 +6,7 @@
 /*   By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:34:18 by leobarbo          #+#    #+#             */
-/*   Updated: 2024/07/01 18:01:39 by leobarbo         ###   ########.fr       */
+/*   Updated: 2024/07/03 14:59:12 by leobarbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,24 @@ typedef enum e_opcode
 	DETACH,
 }	t_opcode;
 
+typedef enum e_status
+{
+	EATING,
+	SLEEPING,
+	THINKING,
+	TAKE_RIGHT_FORK,
+	TAKE_LEFT_FORK,
+	DIED,
+}	t_status;
+
+typedef enum e_time_code
+{
+	SECOND,
+	MILLISECOND,
+	MICROSECOND,
+}	t_time_code;
+
+
 //****************************************************************************//
 //                                  Structs                                   //
 //****************************************************************************//
@@ -74,14 +92,14 @@ typedef struct fork
 //philosopher structure
 typedef struct	s_philo
 {
-	int				id;
-	int			eat_count;
+	int			id;
+	long		meals_count;
 	bool		full;
-	long		time_meal_time;
+	long		last_meal_time;
 	t_fork		*left_fork;
 	t_fork		*right_fork;
-	pthread_t	thread_id; //A philo is a thread
 	t_table		*table;
+	pthread_t	thread_id; //A philo is a thread
 }				t_philo;
 
 //Table structure
@@ -94,6 +112,9 @@ struct s_table
 	long	limit_meals;
 	long	start_simulation;
 	bool	end_simulation;
+	bool	all_threads_created;
+	t_mtx	table_mutex;
+	t_mtx	write_mutex;
 	t_philo	*philos;
 	t_fork	*forks;
 };
@@ -112,5 +133,15 @@ void		*safe_malloc(size_t bytes);
 void		safe_mutex_handle(t_mtx *mutex, t_opcode opcode);
 void		handle_thread_error(int status, t_opcode opcode);
 void		safe_thread_handle(pthread_t *thread, void *(*foo)(void *), void *data, t_opcode e_opcode);
+void		assign_forks(t_philo *philo, t_fork *forks, int philo_position);
+void		philo_init(t_table *table);
+void		init_table(t_table *table);
+void		set_bool(t_mtx *mutex, bool *dest, bool value);
+bool		get_bool(t_mtx *mutex, bool *value);
+void		set_long(t_mtx *mutex, long *dest, long value);
+long		get_long(t_mtx *mutex, long *value);
+void		wait_all_threads_created(t_table *table);
+long		get_time(t_time_code time_code);
+void		precise_usleep(long usec, t_table *table);
 
 #endif

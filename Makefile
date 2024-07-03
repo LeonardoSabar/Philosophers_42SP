@@ -6,11 +6,11 @@
 #    By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/01 08:24:07 by leobarbo          #+#    #+#              #
-#    Updated: 2024/07/01 09:08:58 by leobarbo         ###   ########.fr        #
+#    Updated: 2024/07/03 14:52:31 by leobarbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		:= philosophers
+NAME		:= philo
 CFLAGS		:= -Wextra -Wall -Werror -pthread
 SRCS_PATH	:= ./src/
 .SILENT:
@@ -18,9 +18,14 @@ SRCS_PATH	:= ./src/
 HEADERS		:= -I ./include
 
 SRCS		:= $(addprefix $(SRCS_PATH), \
-				parsing.c \
+				action.c \
+				get_set.c \
+				init.c \
 				main.c \
-				philosophers.c \
+				mutex.c \
+				parsing.c \
+				synch.c \
+				threads.c \
 				utils.c)
 
 OBJS		:= $(SRCS:$(SRCS_PATH)%.c=obj/%.o)

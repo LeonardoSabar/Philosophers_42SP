@@ -6,11 +6,11 @@
 /*   By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 15:54:31 by leobarbo          #+#    #+#             */
-/*   Updated: 2024/07/03 11:53:08 by leobarbo         ###   ########.fr       */
+/*   Updated: 2024/07/03 14:54:26 by leobarbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philosophers.h"
+#include "philosophers.h"
 
 void	assign_forks(t_philo *philo, t_fork *forks, int philo_position)
 {
@@ -52,6 +52,7 @@ void	init_table(t_table *table)
 	table->all_threads_created = false;
 	table->philos = safe_malloc(sizeof(t_philo) * table->philo_nbr);
 	safe_mutex_handle(&table->table_mutex, INIT);
+	safe_mutex_handle(&table->write_lock, INIT);
 	table->forks = safe_malloc(sizeof(t_fork) * table->philo_nbr);
 	while (++i < table->philo_nbr)
 	{
@@ -66,7 +67,7 @@ void	*dinner_simulation(void *data)
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
-	wait_all_threads();
+	// wait_all_threads(philo->table);
 }
 
 void	star_dinner(t_table *table)
@@ -90,5 +91,12 @@ void	star_dinner(t_table *table)
 			safe_thread_handle(&table->philos[i].thread_id, \
 				&dinner_simulation, &table->philos[i], CREATE);
 		}
+	}
+	table->start_simulation = get_time(MILLISECOND);
+	set_bool(&table->table_mutex, &table->all_threads_created, true);
+	i = -1;
+	while (++i < table->philo_nbr)
+	{
+		safe_thread_handle(&table->philos[i].thread_id, NULL, NULL, JOIN);
 	}
 }
