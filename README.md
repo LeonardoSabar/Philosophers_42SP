@@ -1,7 +1,7 @@
 # Philosophers
-#### 🇧🇷 Para acessar a versão em português deste README [clique aqui](https://github.com/LeonardoSabar/PHILOSOPHERS_42SP/blob/main/README_pt_br.md).
+#### 🇧🇷 Para acessar a versão em português deste README [clique aqui](https://github.com/LeonardoSabar/Philosophers_42SP/blob/main/README-PTBR.md).
 <p align="center">
-<img src="https://github.com/LeonardoSabar/Philosophers/blob/master/minitalk.gif" width="800px" alt="mandatory"/><br>
+<img src="https://github.com/LeonardoSabar/Philosophers_42SP/blob/main/utils/Philos.jpeg" width="800px" alt="mandatory"/><br>
 </p>
 This project simulates the classic dining philosophers problem using threads and mutexes. The goal is to avoid deadlocks while ensuring that each philosopher can eat without conflicts.
 
