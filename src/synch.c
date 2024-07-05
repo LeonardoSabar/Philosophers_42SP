@@ -6,7 +6,7 @@
 /*   By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:55:42 by leobarbo          #+#    #+#             */
-/*   Updated: 2024/07/03 14:37:49 by leobarbo         ###   ########.fr       */
+/*   Updated: 2024/07/05 14:22:57 by leobarbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ long	get_time(t_time_code time_code)
 	if (gettimeofday(&time, NULL) == -1)
 		error("Gettimeofday failed.");
 	if (time_code == SECOND)
-		return (time.tv_usec + (time.tv_sec / 1e6));
+		return (time.tv_sec + (time.tv_usec / 1e6));
 	else if (time_code == MILLISECOND)
 		return ((time.tv_usec / 1e3) + (time.tv_sec * 1e3));
 	else if (time_code == MICROSECOND)
@@ -41,6 +41,7 @@ void	precise_usleep(long usec, t_table *table)
 	long	elapsed;
 	long	rem;
 
+	start = get_time(MICROSECOND);
 	while (get_time(MICROSECOND) - start < usec)
 	{
 		if (simulation_finished(table))

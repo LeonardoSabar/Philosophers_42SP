@@ -6,7 +6,7 @@
 /*   By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 15:54:31 by leobarbo          #+#    #+#             */
-/*   Updated: 2024/07/03 17:12:29 by leobarbo         ###   ########.fr       */
+/*   Updated: 2024/07/05 16:55:16 by leobarbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,15 @@ void	*dinner_simulation(void *data)
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
-	// wait_all_threads(philo->table);
+	wait_all_threads(philo->table);
+	while (!simulation_finished(philo->table))
+	{
+		if (philo->full)
+			break ;
+		eat(philo);
+		sleeping(philo);
+		think(philo);
+	}
 }
 
 void	star_dinner(t_table *table)

@@ -6,7 +6,7 @@
 /*   By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:34:18 by leobarbo          #+#    #+#             */
-/*   Updated: 2024/07/03 14:59:12 by leobarbo         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:18:44 by leobarbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,8 @@ struct s_table
 	long	limit_meals;
 	long	start_simulation;
 	bool	end_simulation;
-	bool	all_threads_created;
-	t_mtx	table_mutex;
+	bool	all_threads_created; // to synch philos
+	t_mtx	table_mutex; // avoid races while reading from tables
 	t_mtx	write_mutex;
 	t_philo	*philos;
 	t_fork	*forks;
