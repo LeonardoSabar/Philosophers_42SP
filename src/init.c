@@ -6,7 +6,7 @@
 /*   By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 15:54:31 by leobarbo          #+#    #+#             */
-/*   Updated: 2024/07/05 16:55:16 by leobarbo         ###   ########.fr       */
+/*   Updated: 2024/07/09 17:52:08 by leobarbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,15 @@ void	assign_forks(t_philo *philo, t_fork *forks, int philo_position)
 	int	philo_nbr;
 
 	philo_nbr = philo->table->philo_nbr;
-	philo->left_fork = &forks[(philo_position + 1) % philo_nbr];
-	philo->right_fork = &forks[philo_position];
-	if (philo->id % 2 == 0)
+	if ((philo->id % 2) == 0)
 	{
-		philo->right_fork = &forks[philo_position];
-		philo->left_fork = &forks[(philo_position + 1) % philo_nbr];
+		philo->first_fork = &forks[(philo_position + 1) % philo_nbr];
+		philo->second_fork = &forks[philo_position];
+	}
+	else
+	{
+		philo->first_fork = &forks[philo_position];
+		philo->second_fork = &forks[(philo_position + 1) % philo_nbr];
 	}
 }
 
@@ -34,7 +37,7 @@ void	philo_init(t_table *table)
 	i = -1;
 	while (++i < table->philo_nbr)
 	{
-		philo = table->philos + i;
+		table->philos + i;  // verificar esta variavel
 		philo->id = i + 1;
 		philo->full = false;
 		philo->meals_count = 0;
@@ -67,7 +70,7 @@ void	*dinner_simulation(void *data)
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
-	wait_all_threads(philo->table);
+	wait_all_threads_created(philo->table);
 	while (!simulation_finished(philo->table))
 	{
 		if (philo->full)
@@ -78,7 +81,7 @@ void	*dinner_simulation(void *data)
 	}
 }
 
-void	star_dinner(t_table *table)
+void	start_dinner(t_table *table)
 {
 	int		i;
 

@@ -6,7 +6,7 @@
 /*   By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:34:18 by leobarbo          #+#    #+#             */
-/*   Updated: 2024/07/05 11:18:44 by leobarbo         ###   ########.fr       */
+/*   Updated: 2024/07/09 17:23:46 by leobarbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ typedef struct	s_philo
 	long		meals_count;
 	bool		full;
 	long		last_meal_time;
-	t_fork		*left_fork;
-	t_fork		*right_fork;
+	t_fork		*second_fork;
+	t_fork		*first_fork;
 	t_table		*table;
 	pthread_t	thread_id; //A philo is a thread
 }				t_philo;
@@ -143,5 +143,6 @@ long		get_long(t_mtx *mutex, long *value);
 void		wait_all_threads_created(t_table *table);
 long		get_time(t_time_code time_code);
 void		precise_usleep(long usec, t_table *table);
+void		start_dinner(t_table *table);
 
 #endif
