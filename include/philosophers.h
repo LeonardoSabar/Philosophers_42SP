@@ -6,7 +6,7 @@
 /*   By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:34:18 by leobarbo          #+#    #+#             */
-/*   Updated: 2024/07/09 17:23:46 by leobarbo         ###   ########.fr       */
+/*   Updated: 2024/07/11 13:53:33 by leobarbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@
 //****************************************************************************//
 //                                   Enums                                    //
 //****************************************************************************//
+
+
+# define DEBUG 1;  // Retirar essa macro  antes de entregar
 
 typedef enum e_opcode
 {
@@ -100,6 +103,7 @@ typedef struct	s_philo
 	t_fork		*first_fork;
 	t_table		*table;
 	pthread_t	thread_id; //A philo is a thread
+	t_mtx		philo_mutex;
 }				t_philo;
 
 //Table structure
@@ -123,26 +127,52 @@ struct s_table
 //                                 Functions                                  //
 //****************************************************************************//
 
-const char	*philo_valid_input(const char *str_arg);
-void		error(char *msg);
-long		philo_atol(const char *str_arg);
-void		parse_args(t_table *table, char **av);
-long		arg_convert(const char *str_arg);
-void		handle_mutex_error(int status, t_opcode opcode);
-void		*safe_malloc(size_t bytes);
-void		safe_mutex_handle(t_mtx *mutex, t_opcode opcode);
-void		handle_thread_error(int status, t_opcode opcode);
-void		safe_thread_handle(pthread_t *thread, void *(*foo)(void *), void *data, t_opcode e_opcode);
-void		assign_forks(t_philo *philo, t_fork *forks, int philo_position);
-void		philo_init(t_table *table);
-void		init_table(t_table *table);
+// action.c
+void		write_action(t_status status, t_philo *philo, bool debug);// tirar debug
+void		write_status_debug(t_philo *philo, t_status status, long elapsed);
+void		eat(t_philo *philo); // tirar debug
+void		thinking(t_philo *philo);
+
+//get_set.c
 void		set_bool(t_mtx *mutex, bool *dest, bool value);
 bool		get_bool(t_mtx *mutex, bool *value);
 void		set_long(t_mtx *mutex, long *dest, long value);
 long		get_long(t_mtx *mutex, long *value);
+bool		simulation_finished(t_table *table);
+
+//init.c
+void		assign_forks(t_philo *philo, t_fork *forks, int philo_position);
+void		philo_init(t_table *table);
+void		init_table(t_table *table);
+void		*dinner_simulation(void *data);
+void		start_dinner(t_table *table);
+
+//main.c
+void		print_test_args(t_table *table);
+int			main(int argc, char **argv);
+
+//mutex.c
+void		handle_mutex_error(int status, t_opcode opcode);
+void		safe_mutex_handle(t_mtx *mutex, t_opcode opcode);
+
+//parsing.c
+const char	*philo_valid_input(const char *str_arg);
+void		parse_args(t_table *table, char **av);
+
+//synch.c
 void		wait_all_threads_created(t_table *table);
 long		get_time(t_time_code time_code);
 void		precise_usleep(long usec, t_table *table);
-void		start_dinner(t_table *table);
+
+//threads.c
+void		handle_thread_error(int status, t_opcode opcode);
+void		safe_thread_handle(pthread_t *thread, \
+				void *(*foo)(void *), void *data, t_opcode e_opcode);
+
+//utils.c
+void		error(char *msg);
+void		*safe_malloc(size_t bytes);
+long		philo_atol(const char *str_arg);
+long		arg_convert(const char *str_arg);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 15:54:31 by leobarbo          #+#    #+#             */
-/*   Updated: 2024/07/09 17:52:08 by leobarbo         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:25:28 by leobarbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ void	philo_init(t_table *table)
 	i = -1;
 	while (++i < table->philo_nbr)
 	{
-		table->philos + i;  // verificar esta variavel
+		philo = table->philos + i;  // verificar esta variavel
 		philo->id = i + 1;
 		philo->full = false;
 		philo->meals_count = 0;
 		philo->table = table;
+		safe_mutex_handle(&philo->philo_mutex, INIT);
 		assign_forks(philo, table->forks, i);
 	}
 }
@@ -76,9 +77,10 @@ void	*dinner_simulation(void *data)
 		if (philo->full)
 			break ;
 		eat(philo);
-		sleeping(philo);
-		think(philo);
+		thinking(philo);
+		// sleeping(philo);
 	}
+	return (NULL);
 }
 
 void	start_dinner(t_table *table)
