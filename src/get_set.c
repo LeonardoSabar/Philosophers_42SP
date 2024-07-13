@@ -6,7 +6,7 @@
 /*   By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:49:15 by leobarbo          #+#    #+#             */
-/*   Updated: 2024/07/03 13:48:04 by leobarbo         ###   ########.fr       */
+/*   Updated: 2024/07/13 18:46:09 by leobarbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	set_long(t_mtx *mutex, long *dest, long value)
 	*dest = value;
 	safe_mutex_handle(mutex, UNLOCK);
 }
+
 long	get_long(t_mtx *mutex, long *value)
 {
 	long	ret;
@@ -45,7 +46,9 @@ long	get_long(t_mtx *mutex, long *value)
 	return (ret);
 }
 
-bool	simulation_finished(t_table *table)
+void	increase_long(t_mtx *mutex, long *value)
 {
-	return (get_bool(&table->table_mutex, &table->end_simulation));
+	safe_mutex_handle(mutex, LOCK);
+	(*value)++;
+	safe_mutex_handle(mutex, UNLOCK);
 }

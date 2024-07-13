@@ -6,7 +6,7 @@
 /*   By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:55:42 by leobarbo          #+#    #+#             */
-/*   Updated: 2024/07/11 16:46:16 by leobarbo         ###   ########.fr       */
+/*   Updated: 2024/07/13 18:31:14 by leobarbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,22 @@ void	wait_all_threads_created(t_table *table)
 {
 	while (!get_bool(&table->table_mutex, &table->all_threads_created))
 		;
+}
+
+bool	simulation_finished(t_table *table)
+{
+	return (get_bool(&table->table_mutex, &table->end_simulation));
+}
+
+bool	all_threads_running(t_mtx *mutex, long *threads, long philo_nbr)
+{
+	bool ret;
+
+	ret = false;
+	safe_mutex_handle(mutex, LOCK);
+		ret = true;
+	safe_mutex_handle(mutex, UNLOCK);
+	return (ret);
 }
 
 long	get_time(t_time_code time_code)

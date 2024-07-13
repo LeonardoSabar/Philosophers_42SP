@@ -6,7 +6,7 @@
 /*   By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 15:54:31 by leobarbo          #+#    #+#             */
-/*   Updated: 2024/07/13 16:27:18 by leobarbo         ###   ########.fr       */
+/*   Updated: 2024/07/13 19:20:34 by leobarbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	init_table(t_table *table)
 	i = -1;
 	table->end_simulation = false;
 	table->all_threads_created = false;
+	table->threads_running_nbr = 0;
 	table->philos = safe_malloc(sizeof(t_philo) * table->philo_nbr);
 	safe_mutex_handle(&table->table_mutex, INIT);
 	safe_mutex_handle(&table->write_mutex, INIT);
@@ -72,6 +73,9 @@ void	*dinner_simulation(void *data)
 
 	philo = (t_philo *)data;
 	wait_all_threads_created(philo->table);
+	set_bool(&philo->philo_mutex, &philo->last_meal_time, get_time(MILLISECOND));
+	increase_long(&philo->table->table_mutex, \
+			&philo->table->threads_running_nbr);
 	while (!simulation_finished(philo->table))
 	{
 		if (philo->full)
@@ -90,13 +94,11 @@ void	start_dinner(t_table *table)
 	i = -1;
 	if (table->limit_meals == 0)
 		return ;
-	// else if (table->philo_nbr == 1) // fazer funcao para lidar com este caso!!!
-	// {
-		// usleep(table->time_to_die);
-	// 	printf("%ld %d died\n", get_time() - table->start_simulation, 1);
-	// 	return ;
-
-	// }
+	else if (table->philo_nbr == 1) // fazer funcao para lidar com este caso!!!
+	{
+		safe_thread_handle(&table->philos[0].thread_id, \
+			lone_philo, &table->philos[0], CREATE);
+	}
 	else
 	{
 		while (++i < table->philo_nbr)
@@ -105,6 +107,7 @@ void	start_dinner(t_table *table)
 				dinner_simulation, &table->philos[i], CREATE);
 		}
 	}
+	safe_thread_handle(table->monitor, monitor_simulation, table, CREATE);
 	table->start_simulation = get_time(MILLISECOND);
 	set_bool(&table->table_mutex, &table->all_threads_created, true);
 	i = -1;

@@ -6,7 +6,7 @@
 /*   By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:34:18 by leobarbo          #+#    #+#             */
-/*   Updated: 2024/07/11 16:32:08 by leobarbo         ###   ########.fr       */
+/*   Updated: 2024/07/13 18:46:19 by leobarbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,18 +109,20 @@ typedef struct	s_philo
 //Table structure
 struct s_table
 {
-	long	philo_nbr;
-	long	time_to_die;
-	long	time_to_eat;
-	long	time_to_sleep;
-	long	limit_meals;
-	long	start_simulation;
-	bool	end_simulation;
-	bool	all_threads_created; // to synch philos
-	t_mtx	table_mutex; // avoid races while reading from tables
-	t_mtx	write_mutex;
-	t_philo	*philos;
-	t_fork	*forks;
+	long		philo_nbr;
+	long		time_to_die;
+	long		time_to_eat;
+	long		time_to_sleep;
+	long		limit_meals;
+	long		start_simulation;
+	long		threads_running_nbr;
+	bool		end_simulation;
+	bool		all_threads_created; // to synch philos
+	pthread_t	monitor;
+	t_mtx		table_mutex; // avoid races while reading from tables
+	t_mtx		write_mutex;
+	t_philo		*philos;
+	t_fork		*forks;
 };
 
 //****************************************************************************//
@@ -138,7 +140,7 @@ void		set_bool(t_mtx *mutex, bool *dest, bool value);
 bool		get_bool(t_mtx *mutex, bool *value);
 void		set_long(t_mtx *mutex, long *dest, long value);
 long		get_long(t_mtx *mutex, long *value);
-bool		simulation_finished(t_table *table);
+void		increase_long(t_mtx *mutex, long *value);
 
 //init.c
 void		assign_forks(t_philo *philo, t_fork *forks, int philo_position);
@@ -151,6 +153,9 @@ void		start_dinner(t_table *table);
 void		print_test_args(t_table *table);
 int			main(int argc, char **argv);
 
+//monitor.c
+void		*monitor_simulation(void *data);
+
 //mutex.c
 void		handle_mutex_error(int status, t_opcode opcode);
 void		safe_mutex_handle(t_mtx *mutex, t_opcode opcode);
@@ -161,6 +166,8 @@ void		parse_args(t_table *table, char **av);
 
 //synch.c
 void		wait_all_threads_created(t_table *table);
+bool		simulation_finished(t_table *table);
+bool		all_threads_running(t_mtx *mutex, long *threads, long philo_nbr);
 long		get_time(t_time_code time_code);
 void		precise_usleep(long usec, t_table *table);
 

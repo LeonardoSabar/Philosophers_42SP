@@ -6,7 +6,7 @@
 /*   By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:39:47 by leobarbo          #+#    #+#             */
-/*   Updated: 2024/07/13 17:43:51 by leobarbo         ###   ########.fr       */
+/*   Updated: 2024/07/13 19:18:19 by leobarbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,25 @@ void	eat(t_philo *philo)
 	philo->meals_count++;
 	write_action(EATING, philo, debug);
 	precise_usleep(philo->table->time_to_eat, philo->table);
-	if (philo->table->limit_meals > 0 && philo->meals_count == philo->table->limit_meals)
+	if (philo->table->limit_meals > 0 && \
+			philo->meals_count == philo->table->limit_meals)
 		set_bool(&philo->philo_mutex, &philo->full, true);
 	safe_mutex_handle(&philo->first_fork->fork, UNLOCK);
 	safe_mutex_handle(&philo->second_fork->fork, UNLOCK);
 }
 
-// void	thinking(t_philo *philo, bool debug)
-// {
-// 	write_action(THINKING, philo, debug);
-// 	precise_usleep(philo->table->time_to_think, philo->table);
-// }
+bool	philo_died(t_philo *philo)
+{
+	long 	elapsed;
+	long	time_to_die;
+
+	if (get_bool(&philo->philo_mutex, &philo->full))
+		return (false);
+	elapsed = get_time(MILLISECOND) - get_long(&philo->philo_mutex, &philo->last_meal_time);
+	if (elapsed > (time_to_die)) // Precisar converter para milisegundos
+		return (true);
+	return (false);
+}
 
 void	write_action(t_status status, t_philo *philo, bool debug) // Retirar debug
 {
