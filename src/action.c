@@ -6,7 +6,7 @@
 /*   By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:39:47 by leobarbo          #+#    #+#             */
-/*   Updated: 2024/07/11 14:01:45 by leobarbo         ###   ########.fr       */
+/*   Updated: 2024/07/13 17:43:51 by leobarbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	write_status_debug(t_philo *philo, t_status status, long elapsed)
 	if (TAKE_RIGHT_FORK == status && !simulation_finished(philo->table))
 		printf(G"%6ld"RST" %d has taken a first fork " "\t\tnº"B"[ %d ]\n"RST, elapsed, philo->id, philo->first_fork->fork_id);
 	else if (TAKE_LEFT_FORK == status && !simulation_finished(philo->table))
-		printf(G"%6ld"RST" %d has taken a second fork " "\tnº"B"[ %d ]\n"RST, elapsed, philo->id, philo->second_fork->fork_id);
+		printf(G"%6ld"RST" %d has taken a second fork " "\t\tnº"B"[ %d ]\n"RST, elapsed, philo->id, philo->second_fork->fork_id);
 	else if (EATING == status)
 		printf(B"%6ld"RST" %d is eating\n", elapsed, philo->id);
 	else if (SLEEPING == status)
@@ -66,7 +66,7 @@ void	write_action(t_status status, t_philo *philo, bool debug) // Retirar debug
 {
 	long	elapsed;
 
-	elapsed = get_time(MILLISECOND);
+	elapsed = get_time(MILLISECOND) - philo->table->start_simulation;
 	if (philo->full)
 		return ;
 	safe_mutex_handle(&philo->table->write_mutex, LOCK);

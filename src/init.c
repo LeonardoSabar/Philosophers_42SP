@@ -6,7 +6,7 @@
 /*   By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 15:54:31 by leobarbo          #+#    #+#             */
-/*   Updated: 2024/07/11 12:25:28 by leobarbo         ###   ########.fr       */
+/*   Updated: 2024/07/13 16:27:18 by leobarbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	start_dinner(t_table *table)
 		return ;
 	// else if (table->philo_nbr == 1) // fazer funcao para lidar com este caso!!!
 	// {
-	// 	usleep(table->time_to_die);
+		// usleep(table->time_to_die);
 	// 	printf("%ld %d died\n", get_time() - table->start_simulation, 1);
 	// 	return ;
 
@@ -102,14 +102,12 @@ void	start_dinner(t_table *table)
 		while (++i < table->philo_nbr)
 		{
 			safe_thread_handle(&table->philos[i].thread_id, \
-				&dinner_simulation, &table->philos[i], CREATE);
+				dinner_simulation, &table->philos[i], CREATE);
 		}
 	}
 	table->start_simulation = get_time(MILLISECOND);
 	set_bool(&table->table_mutex, &table->all_threads_created, true);
 	i = -1;
 	while (++i < table->philo_nbr)
-	{
 		safe_thread_handle(&table->philos[i].thread_id, NULL, NULL, JOIN);
-	}
 }
