@@ -15,7 +15,7 @@
 void	error(char *msg)
 {
 	printf(RED"Error: %s\n"RST, msg);
-	//chamar a cleam aqui?
+	//chamar a clean aqui?
 	exit(EXIT_FAILURE);
 }
 

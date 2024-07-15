@@ -77,7 +77,7 @@ void	sleeping(t_philo *philo)
 		return ;
 	if (!simulation_finished(philo->table))
 		write_action(SLEEPING, philo, debug);
-	precise_usleep(philo->table->time_to_sleep, philo->table); // Verificar a necessidade e se esta atrasando o tempo
+	// precise_usleep(philo->table->time_to_sleep, philo->table); // Verificar a necessidade e se esta atrasando o tempo
 }
 
 void	eat(t_philo *philo)
