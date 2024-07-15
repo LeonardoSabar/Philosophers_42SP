@@ -6,7 +6,7 @@
 /*   By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:21:15 by leobarbo          #+#    #+#             */
-/*   Updated: 2024/07/03 14:33:50 by leobarbo         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:42:25 by leobarbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	error(char *msg)
 {
 	printf(RED"Error: %s\n"RST, msg);
-	//chamar a clean aqui?
 	exit(EXIT_FAILURE);
 }
 

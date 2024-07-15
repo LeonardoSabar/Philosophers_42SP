@@ -6,7 +6,7 @@
 /*   By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:39:47 by leobarbo          #+#    #+#             */
-/*   Updated: 2024/07/13 19:18:19 by leobarbo         ###   ########.fr       */
+/*   Updated: 2024/07/15 19:11:15 by leobarbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	write_status_debug(t_philo *philo, t_status status, long elapsed)
 	else if (TAKE_LEFT_FORK == status && !simulation_finished(philo->table))
 		printf(G"%6ld"RST" %d has taken a second fork " "\t\tnº"B"[ %d ]\n"RST, elapsed, philo->id, philo->second_fork->fork_id);
 	else if (EATING == status && !simulation_finished(philo->table))
-		printf(B"%6ld"RST" %d is eating""\t\t\t\t"O"[%ld of %ld]\n"RST, elapsed, philo->id, philo->meals_count, philo->table->limit_meals);
+		printf(B"%6ld"RST" %d is eating""\t\t\t\t\t"O"[%ld of %ld]\n"RST, elapsed, philo->id, philo->meals_count, philo->table->limit_meals);
 	else if (SLEEPING == status && !simulation_finished(philo->table))
 		printf(Y"%6ld"RST" %d is sleeping\n", elapsed, philo->id);
 	else if (THINKING == status && !simulation_finished(philo->table))
@@ -41,7 +41,7 @@ void	de_synchronize_philos(t_philo *philo)
 	{
 		if (philo->id % 2 == 0)
 			thinking(philo, true);
-	
+
 	}
 }
 
@@ -54,7 +54,7 @@ void	thinking(t_philo *philo, bool pre_sim)
 	long	t_sleep;
 	long	t_think;
 
-	if (philo->full) // é necessrio?
+	if (philo->full)
 		return ;
 	if (!pre_sim)
 		write_action(THINKING, philo, debug);
@@ -77,7 +77,7 @@ void	sleeping(t_philo *philo)
 		return ;
 	if (!simulation_finished(philo->table))
 		write_action(SLEEPING, philo, debug);
-	// precise_usleep(philo->table->time_to_sleep, philo->table); // Verificar a necessidade e se esta atrasando o tempo
+	precise_usleep(philo->table->time_to_sleep, philo->table);
 }
 
 void	eat(t_philo *philo)
