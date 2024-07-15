@@ -22,7 +22,9 @@ SRCS		:= $(addprefix $(SRCS_PATH), \
 				get_set.c \
 				init.c \
 				main.c \
+				monitor.c \
 				mutex.c \
+				one_philo.c \
 				parsing.c \
 				synch.c \
 				threads.c \

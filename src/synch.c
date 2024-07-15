@@ -29,6 +29,7 @@ bool	all_threads_running(t_mtx *mutex, long *threads, long philo_nbr)
 
 	ret = false;
 	safe_mutex_handle(mutex, LOCK);
+	if (*threads == philo_nbr)
 		ret = true;
 	safe_mutex_handle(mutex, UNLOCK);
 	return (ret);

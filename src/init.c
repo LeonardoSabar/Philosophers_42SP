@@ -73,16 +73,15 @@ void	*dinner_simulation(void *data)
 
 	philo = (t_philo *)data;
 	wait_all_threads_created(philo->table);
-	set_bool(&philo->philo_mutex, &philo->last_meal_time, get_time(MILLISECOND));
-	increase_long(&philo->table->table_mutex, \
-			&philo->table->threads_running_nbr);
+	set_long(&philo->philo_mutex, &philo->last_meal_time, get_time(MILLISECOND));
+	increase_long(&philo->table->table_mutex, &philo->table->threads_running_nbr);
 	while (!simulation_finished(philo->table))
 	{
 		if (philo->full)
 			break ;
 		eat(philo);
 		thinking(philo);
-		// sleeping(philo);
+		sleeping(philo);
 	}
 	return (NULL);
 }
@@ -96,8 +95,7 @@ void	start_dinner(t_table *table)
 		return ;
 	else if (table->philo_nbr == 1) // fazer funcao para lidar com este caso!!!
 	{
-		safe_thread_handle(&table->philos[0].thread_id, \
-			lone_philo, &table->philos[0], CREATE);
+		safe_thread_handle(&table->philos[0].thread_id, lone_philo, &table->philos[0], CREATE);
 	}
 	else
 	{
@@ -107,7 +105,7 @@ void	start_dinner(t_table *table)
 				dinner_simulation, &table->philos[i], CREATE);
 		}
 	}
-	safe_thread_handle(table->monitor, monitor_simulation, table, CREATE);
+	safe_thread_handle(&table->monitor, monitor_simulation, table, CREATE);
 	table->start_simulation = get_time(MILLISECOND);
 	set_bool(&table->table_mutex, &table->all_threads_created, true);
 	i = -1;

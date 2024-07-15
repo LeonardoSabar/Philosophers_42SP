@@ -134,6 +134,7 @@ void		write_action(t_status status, t_philo *philo, bool debug);// tirar debug
 void		write_status_debug(t_philo *philo, t_status status, long elapsed);
 void		eat(t_philo *philo); // tirar debug
 void		thinking(t_philo *philo);
+void		sleeping(t_philo *philo);
 
 //get_set.c
 void		set_bool(t_mtx *mutex, bool *dest, bool value);
@@ -154,11 +155,15 @@ void		print_test_args(t_table *table);
 int			main(int argc, char **argv);
 
 //monitor.c
+bool		philo_died(t_philo *philo);
 void		*monitor_simulation(void *data);
 
 //mutex.c
 void		handle_mutex_error(int status, t_opcode opcode);
 void		safe_mutex_handle(t_mtx *mutex, t_opcode opcode);
+
+//one_philo.c
+void		*lone_philo(void *data);
 
 //parsing.c
 const char	*philo_valid_input(const char *str_arg);

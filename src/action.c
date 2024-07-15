@@ -20,21 +20,37 @@ void	write_status_debug(t_philo *philo, t_status status, long elapsed)
 		printf(G"%6ld"RST" %d has taken a first fork " "\t\tnº"B"[ %d ]\n"RST, elapsed, philo->id, philo->first_fork->fork_id);
 	else if (TAKE_LEFT_FORK == status && !simulation_finished(philo->table))
 		printf(G"%6ld"RST" %d has taken a second fork " "\t\tnº"B"[ %d ]\n"RST, elapsed, philo->id, philo->second_fork->fork_id);
-	else if (EATING == status)
+	else if (EATING == status && !simulation_finished(philo->table))
 		printf(B"%6ld"RST" %d is eating\n", elapsed, philo->id);
-	else if (SLEEPING == status)
+	else if (SLEEPING == status && !simulation_finished(philo->table))
 		printf(Y"%6ld"RST" %d is sleeping\n", elapsed, philo->id);
-	else if (THINKING == status)
+	else if (THINKING == status && !simulation_finished(philo->table))
 		printf(C"%6ld"RST" %d is thinking\n", elapsed, philo->id);
 	else if (DIED == status)
-		printf(RED"%6ld"RST" %d died\n", elapsed, philo->id);
+		printf(RED"%6ld"RST" %d died\n", elapsed, philo->id); // deve dar um "break"?
 }
+
 void	thinking(t_philo *philo)
 {
 	bool	debug;
 	debug = DEBUG;
 
-	write_action(THINKING, philo, debug);
+	if (philo->full)
+		return ;
+	if (!simulation_finished(philo->table))
+		write_action(THINKING, philo, debug);
+}
+
+void	sleeping(t_philo *philo)
+{
+	bool	debug;
+	debug = DEBUG;
+
+	if (philo->full)
+		return ;
+	if (!simulation_finished(philo->table))
+		write_action(SLEEPING, philo, debug);
+	precise_usleep(philo->table->time_to_sleep, philo->table);
 }
 
 void	eat(t_philo *philo)
@@ -57,19 +73,6 @@ void	eat(t_philo *philo)
 	safe_mutex_handle(&philo->second_fork->fork, UNLOCK);
 }
 
-bool	philo_died(t_philo *philo)
-{
-	long 	elapsed;
-	long	time_to_die;
-
-	if (get_bool(&philo->philo_mutex, &philo->full))
-		return (false);
-	elapsed = get_time(MILLISECOND) - get_long(&philo->philo_mutex, &philo->last_meal_time);
-	if (elapsed > (time_to_die)) // Precisar converter para milisegundos
-		return (true);
-	return (false);
-}
-
 void	write_action(t_status status, t_philo *philo, bool debug) // Retirar debug
 {
 	long	elapsed;
@@ -79,7 +82,7 @@ void	write_action(t_status status, t_philo *philo, bool debug) // Retirar debug
 		return ;
 	safe_mutex_handle(&philo->table->write_mutex, LOCK);
 	if (debug)
-		write_status_debug(philo, status, elapsed);     //retirar ese "if"
+		write_status_debug(philo, status, elapsed);     //retirar esse "if"
 	else
 	{
 		if ((TAKE_RIGHT_FORK == status || TAKE_LEFT_FORK == status)
