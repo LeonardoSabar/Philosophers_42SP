@@ -6,7 +6,7 @@
 /*   By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 15:54:31 by leobarbo          #+#    #+#             */
-/*   Updated: 2024/07/13 19:20:34 by leobarbo         ###   ########.fr       */
+/*   Updated: 2024/07/15 19:54:53 by leobarbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	philo_init(t_table *table)
 	i = -1;
 	while (++i < table->philo_nbr)
 	{
-		philo = table->philos + i;  // verificar esta variavel
+		philo = table->philos + i;
 		philo->id = i + 1;
 		philo->full = false;
 		philo->meals_count = 0;

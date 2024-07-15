@@ -6,7 +6,7 @@
 /*   By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:34:18 by leobarbo          #+#    #+#             */
-/*   Updated: 2024/07/13 18:46:19 by leobarbo         ###   ########.fr       */
+/*   Updated: 2024/07/15 20:05:21 by leobarbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,6 @@
 //                                   Enums                                    //
 //****************************************************************************//
 
-
-# define DEBUG 1;  // Retirar essa macro  antes de entregar
-
 typedef enum e_opcode
 {
 	LOCK,
@@ -75,7 +72,6 @@ typedef enum e_time_code
 	MICROSECOND,
 }	t_time_code;
 
-
 //****************************************************************************//
 //                                  Structs                                   //
 //****************************************************************************//
@@ -92,9 +88,8 @@ typedef struct fork
 	int			fork_id;
 }				t_fork;
 
-
 //philosopher structure
-typedef struct	s_philo
+typedef struct s_philo
 {
 	int			id;
 	long		meals_count;
@@ -103,7 +98,7 @@ typedef struct	s_philo
 	t_fork		*second_fork;
 	t_fork		*first_fork;
 	t_table		*table;
-	pthread_t	thread_id; //A philo is a thread
+	pthread_t	thread_id;
 	t_mtx		philo_mutex;
 }				t_philo;
 
@@ -118,9 +113,9 @@ struct s_table
 	long		start_simulation;
 	long		threads_running_nbr;
 	bool		end_simulation;
-	bool		all_threads_created; // to synch philos
+	bool		all_threads_created;
 	pthread_t	monitor;
-	t_mtx		table_mutex; // avoid races while reading from tables
+	t_mtx		table_mutex;
 	t_mtx		write_mutex;
 	t_philo		*philos;
 	t_fork		*forks;
@@ -131,9 +126,8 @@ struct s_table
 //****************************************************************************//
 
 // action.c
-void		write_action(t_status status, t_philo *philo, bool debug);// tirar debug
-void		write_status_debug(t_philo *philo, t_status status, long elapsed);
-void		eat(t_philo *philo); // tirar debug
+void		write_action(t_status status, t_philo *philo);
+void		eat(t_philo *philo);
 void		thinking(t_philo *philo, bool pre_sim);
 void		sleeping(t_philo *philo);
 
@@ -154,7 +148,6 @@ void		philo_init(t_table *table);
 void		init_table(t_table *table);
 
 //main.c
-void		print_test_args(t_table *table);
 int			main(int argc, char **argv);
 
 //monitor.c
