@@ -15,6 +15,7 @@
 void	error(char *msg)
 {
 	printf(RED"Error: %s\n"RST, msg);
+	//chamar a cleam aqui?
 	exit(EXIT_FAILURE);
 }
 
@@ -63,4 +64,21 @@ long	arg_convert(const char *str_arg)
 	if (nbr > INT_MAX)
 		error("Invalid argument. Number is too big.");
 	return (nbr);
+}
+
+void	clean(t_table *table)
+{
+	t_philo	*philo;
+	int		i;
+
+	i = -1;
+	while (++i < table->philo_nbr)
+	{
+		philo = &table->philos[i];
+		safe_mutex_handle(&philo->philo_mutex, DESTROY);
+	}
+	safe_mutex_handle(&table->write_mutex, DESTROY);
+	safe_mutex_handle(&table->table_mutex, DESTROY);
+	free(table->forks);
+	free(table->philos);
 }

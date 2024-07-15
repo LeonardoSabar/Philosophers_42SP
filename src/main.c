@@ -33,7 +33,7 @@ int	main(int argc, char **argv)
 		{
 			init_table(&table);
 			start_dinner(&table);
-			// clean(&table); // Quando todos os filósofos terminarem de comer ou um morrer, "limpar a mesa"
+			clean(&table);
 		}
 		// print_test_args(&table);
 	}

@@ -133,8 +133,12 @@ struct s_table
 void		write_action(t_status status, t_philo *philo, bool debug);// tirar debug
 void		write_status_debug(t_philo *philo, t_status status, long elapsed);
 void		eat(t_philo *philo); // tirar debug
-void		thinking(t_philo *philo);
+void		thinking(t_philo *philo, bool pre_sim);
 void		sleeping(t_philo *philo);
+
+//dinner.c
+void		*dinner_simulation(void *data);
+void		start_dinner(t_table *table);
 
 //get_set.c
 void		set_bool(t_mtx *mutex, bool *dest, bool value);
@@ -147,8 +151,6 @@ void		increase_long(t_mtx *mutex, long *value);
 void		assign_forks(t_philo *philo, t_fork *forks, int philo_position);
 void		philo_init(t_table *table);
 void		init_table(t_table *table);
-void		*dinner_simulation(void *data);
-void		start_dinner(t_table *table);
 
 //main.c
 void		print_test_args(t_table *table);
@@ -186,5 +188,6 @@ void		error(char *msg);
 void		*safe_malloc(size_t bytes);
 long		philo_atol(const char *str_arg);
 long		arg_convert(const char *str_arg);
+void		clean(t_table *table);
 
 #endif

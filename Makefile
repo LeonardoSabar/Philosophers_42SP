@@ -19,6 +19,7 @@ HEADERS		:= -I ./include
 
 SRCS		:= $(addprefix $(SRCS_PATH), \
 				action.c \
+				dinner.c \
 				get_set.c \
 				init.c \
 				main.c \

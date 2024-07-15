@@ -30,15 +30,42 @@ void	write_status_debug(t_philo *philo, t_status status, long elapsed)
 		printf(RED"%6ld"RST" %d died\n", elapsed, philo->id); // deve dar um "break"?
 }
 
-void	thinking(t_philo *philo)
+void	de_synchronize_philos(t_philo *philo)
+{
+	if (philo->table->philo_nbr % 2 == 0)
+	{
+		if (philo->id % 2 == 0)
+			precise_usleep(3e4, philo->table);
+	}
+	else
+	{
+		if (philo->id % 2 == 0)
+			thinking(philo, true);
+	
+	}
+}
+
+void	thinking(t_philo *philo, bool pre_sim)
 {
 	bool	debug;
 	debug = DEBUG;
 
-	if (philo->full)
+	long	t_eat;
+	long	t_sleep;
+	long	t_think;
+
+	if (philo->full) // é necessrio?
 		return ;
-	if (!simulation_finished(philo->table))
+	if (!pre_sim)
 		write_action(THINKING, philo, debug);
+	if (philo->table->philo_nbr % 2 == 0)
+		return ;
+	t_eat = philo->table->time_to_eat;
+	t_sleep = philo->table->time_to_sleep;
+	t_think = t_eat * 2 - t_sleep;
+	if (t_think < 0)
+		t_think = 0;
+	precise_usleep(t_think * 0.42, philo->table);
 }
 
 void	sleeping(t_philo *philo)
@@ -50,7 +77,7 @@ void	sleeping(t_philo *philo)
 		return ;
 	if (!simulation_finished(philo->table))
 		write_action(SLEEPING, philo, debug);
-	precise_usleep(philo->table->time_to_sleep, philo->table);
+	precise_usleep(philo->table->time_to_sleep, philo->table); // Verificar a necessidade e se esta atrasando o tempo
 }
 
 void	eat(t_philo *philo)
