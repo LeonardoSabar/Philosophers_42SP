@@ -6,7 +6,7 @@
 /*   By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:55:42 by leobarbo          #+#    #+#             */
-/*   Updated: 2024/07/13 18:31:14 by leobarbo         ###   ########.fr       */
+/*   Updated: 2024/07/15 20:01:01 by leobarbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	simulation_finished(t_table *table)
 
 bool	all_threads_running(t_mtx *mutex, long *threads, long philo_nbr)
 {
-	bool ret;
+	bool	ret;
 
 	ret = false;
 	safe_mutex_handle(mutex, LOCK);
@@ -69,6 +69,6 @@ void	precise_usleep(long usec, t_table *table)
 			usleep(rem / 2);
 		else
 			while (get_time(MICROSECOND) - start < usec)
-			;
+				;
 	}
 }

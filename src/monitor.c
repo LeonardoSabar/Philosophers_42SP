@@ -6,7 +6,7 @@
 /*   By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 18:11:15 by leobarbo          #+#    #+#             */
-/*   Updated: 2024/07/13 19:13:47 by leobarbo         ###   ########.fr       */
+/*   Updated: 2024/07/15 20:01:28 by leobarbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 bool	philo_died(t_philo *philo)
 {
-	long 	elapsed;
+	long	elapsed;
 	long	time_to_die;
 
 	if (get_bool(&philo->philo_mutex, &philo->full))
 		return (false);
-	elapsed = get_time(MILLISECOND) - get_long(&philo->philo_mutex, &philo->last_meal_time);
+	elapsed = get_time(MILLISECOND) - get_long(&philo->philo_mutex, \
+			&philo->last_meal_time);
 	time_to_die = philo->table->time_to_die / 1e3;
 	if (elapsed > time_to_die)
 		return (true);
@@ -30,11 +31,10 @@ void	*monitor_simulation(void *data)
 {
 	int		i;
 	t_table	*table;
-	bool	debug; // retirar esta variavel
 
-	debug = DEBUG; // retirar esta variavel
 	table = (t_table *)data;
-	while (!all_threads_running(&table->table_mutex, &table->threads_running_nbr, table->philo_nbr))
+	while (!all_threads_running(&table->table_mutex, \
+			&table->threads_running_nbr, table->philo_nbr))
 		;
 	while (!simulation_finished(table))
 	{
@@ -44,7 +44,7 @@ void	*monitor_simulation(void *data)
 			if (philo_died(table->philos + i))
 			{
 				set_bool(&table->table_mutex, &table->end_simulation, true);
-				write_action(DIED, table->philos + i, debug);
+				write_action(DIED, table->philos + i);
 			}
 		}
 	}
