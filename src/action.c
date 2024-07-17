@@ -12,8 +12,7 @@
 
 #include "philosophers.h"
 
-// Retirar funcao write_status_debug e retirar macro DEBUG do arquivo philosophers.h
-
+//This funcition is used only to debug purposes, should be removed in the final version!!!
 void	write_status_debug(t_philo *philo, t_status status, long elapsed)
 {
 	if (TAKE_RIGHT_FORK == status && !simulation_finished(philo->table))
@@ -27,7 +26,7 @@ void	write_status_debug(t_philo *philo, t_status status, long elapsed)
 	else if (THINKING == status && !simulation_finished(philo->table))
 		printf(C"%6ld"RST" %d is thinking\n", elapsed, philo->id);
 	else if (DIED == status)
-		printf(RED"%6ld"RST" %d died\n", elapsed, philo->id); // deve dar um "break"?
+		printf(RED"%6ld"RST" %d died\n", elapsed, philo->id);
 }
 
 void	de_synchronize_philos(t_philo *philo)
@@ -104,10 +103,10 @@ void	write_action(t_status status, t_philo *philo, bool debug) // Retirar debug
 {
 	long	elapsed;
 
-	elapsed = get_time(MILLISECOND) - philo->table->start_simulation;
 	if (philo->full)
 		return ;
 	safe_mutex_handle(&philo->table->write_mutex, LOCK);
+	elapsed = get_time(MILLISECOND) - philo->table->start_simulation;
 	if (debug)
 		write_status_debug(philo, status, elapsed);     //retirar esse "if"
 	else
