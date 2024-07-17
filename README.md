@@ -1,7 +1,7 @@
 # Philosophers
 ####   🇧🇷 Para acessar a versão em português deste README [clique aqui](https://github.com/LeonardoSabar/Philosophers_42SP/blob/main/README-PTBR.md).
 <p align="center">
-<img src="https://github.com/LeonardoSabar/Philosophers_42SP/blob/main/utils/philos.jpeg" width="800px" alt="mandatory"/><br>
+<img src="https://github.com/LeonardoSabar/Philosophers_42SP/blob/GitHub_Version/utils/philos.jpeg" width="800px" alt="mandatory"/><br>
 </p>
 
 This project simulates the classic [dining philosophers problem](https://en.wikipedia.org/wiki/Dining_philosophers_problem) using [threads](https://en.wikipedia.org/wiki/Thread_(computing)) and [mutexes](https://en.wikipedia.org/wiki/Mutual_exclusion). The goal is to avoid deadlocks while ensuring that each philosopher can eat without conflicts.
