@@ -154,7 +154,6 @@ void		philo_init(t_table *table);
 void		init_table(t_table *table);
 
 //main.c
-void		print_test_args(t_table *table);
 int			main(int argc, char **argv);
 
 //monitor.c
