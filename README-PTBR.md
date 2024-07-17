@@ -1,12 +1,5 @@
 # Philosophers
-####   🇺🇸 To access the english version of this README
-
-
-
-
-
-
- [click here](https://github.com/LeonardoSabar/Philosophers_42SP/blob/GitHub_Version/README.md).
+####   🇺🇸 To access the english version of this README [click here](https://github.com/LeonardoSabar/Philosophers_42SP/blob/GitHub_Version/README-PTBR.md).
 <p align="center">
 <img src="https://github.com/LeonardoSabar/Philosophers_42SP/blob/GitHub_Version/utils/philos.jpeg" width="800px" alt="mandatory"/><br>
 </p>
